@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Todo, TodoInitialState } from "./type";
 import { fetchTodo } from "./thunk";
+import { REHYDRATE } from "redux-persist";
 
 const initialState: TodoInitialState = {
   list: [],
@@ -49,6 +50,9 @@ const todoSlice = createSlice({
     });
     builder.addCase(fetchTodo.pending, (state, action) => {
       state.isLoading = true;
+    });
+    builder.addCase(REHYDRATE, (state, action) => {
+      console.log("Rehydrated state:", action.type);
     });
   },
 });
